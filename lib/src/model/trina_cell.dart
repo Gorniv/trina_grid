@@ -33,7 +33,12 @@ class TrinaCell {
   /// The [onChanged] parameter allows for cell-level control over value changes.
   /// The [merge] parameter contains merge information for this cell.
   TrinaCell(
-      {dynamic value, Key? key, this.renderer, this.onChanged, this.merge})
+      {dynamic value,
+      this.referenceValue,
+      Key? key,
+      this.renderer,
+      this.onChanged,
+      this.merge})
       : _key = key ?? UniqueKey(),
         _value = value,
         _originalValue = value,
@@ -44,6 +49,9 @@ class TrinaCell {
   dynamic _value;
 
   final dynamic _originalValue;
+
+  /// for operation on cell, include custom render and change
+  dynamic referenceValue;
 
   /// Stores the old value when change tracking is enabled
   dynamic _oldValue;
