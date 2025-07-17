@@ -1491,7 +1491,7 @@ class TrinaGridLocaleText {
     this.setFilter = 'Установить фильтр',
     this.resetFilter = 'Сбросить фильтр',
     // SetColumns popup
-    this.setColumnsTitle = 'Column title',
+    this.setColumnsTitle = 'Название колонки',
     // Filter popup
     this.filterColumn = 'Колонка',
     this.filterType = 'Тип',
@@ -1506,7 +1506,7 @@ class TrinaGridLocaleText {
     this.filterLessThan = 'Меньше чем',
     this.filterLessThanOrEqualTo = 'Меньше или равно',
     // Date popup
-    this.sunday = 'Вск',
+    this.sunday = 'Вс',
     this.monday = 'Пн',
     this.tuesday = 'Вт',
     this.wednesday = 'Ср',
