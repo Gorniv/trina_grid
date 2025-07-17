@@ -2499,12 +2499,16 @@ class MockTrinaGridStateManager extends _i1.Mock
   void setFilter(
     _i2.FilteredListFilter<_i2.TrinaRow<dynamic>>? filter, {
     bool? notify = true,
+    List<_i2.TrinaRow<dynamic>>? filterRowsApply,
   }) =>
       super.noSuchMethod(
         Invocation.method(
           #setFilter,
           [filter],
-          {#notify: notify},
+          {
+            #notify: notify,
+            #filterRowsApply: filterRowsApply,
+          },
         ),
         returnValueForMissingStub: null,
       );

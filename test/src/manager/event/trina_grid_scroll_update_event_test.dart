@@ -5,6 +5,7 @@ import 'package:trina_grid/trina_grid.dart';
 
 import '../../../mock/shared_mocks.mocks.dart';
 
+// flutter test test/src/manager/event/trina_grid_scroll_update_event_test.dart
 void main() {
   late MockTrinaGridStateManager stateManager;
   late TrinaGridScrollController scrollController;
@@ -43,6 +44,10 @@ void main() {
     when(verticalController.position).thenReturn(scrollPosition);
     when(horizontalController.position).thenReturn(scrollPosition);
     when(scrollPosition.isScrollingNotifier).thenReturn(ValueNotifier(false));
+    
+    // Add missing mocks for hasClients
+    when(verticalController.hasClients).thenReturn(true);
+    when(horizontalController.hasClients).thenReturn(true);
   });
 
   group('Argument test', () {
