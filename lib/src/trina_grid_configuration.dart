@@ -1296,6 +1296,10 @@ class TrinaGridLocaleText {
   final String setColumns;
   final String setFilter;
   final String resetFilter;
+  final String close;
+  final String filter;
+  final String addFilter;
+  final String deleteSelectedFilter;
 
   // SetColumns popup
   final String setColumnsTitle;
@@ -1344,6 +1348,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Set columns',
     this.setFilter = 'Set filter',
     this.resetFilter = 'Reset filter',
+    this.addFilter = 'Add',
+    this.deleteSelectedFilter = 'Delete Selected',
+    this.close = 'Close',
+    this.filter = 'Filter',
     // SetColumns popup
     this.setColumnsTitle = 'Column title',
     // Filter popup
@@ -1387,6 +1395,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Définir les colonnes',
     this.setFilter = 'Filtrer',
     this.resetFilter = 'Défiltrer',
+    this.addFilter = 'Ajouter un filtre',
+    this.deleteSelectedFilter = 'Supprimer le filtre sélectionné',
+    this.close = 'Fermer',
+    this.filter = 'Filtre',
     // SetColumns popup
     this.setColumnsTitle = 'Titre de colonne',
     // Filter popup
@@ -1430,6 +1442,10 @@ class TrinaGridLocaleText {
     this.setColumns = '设置列',
     this.setFilter = '设置过滤器',
     this.resetFilter = '重置过滤器',
+    this.addFilter = '添加过滤器',
+    this.deleteSelectedFilter = '删除选定的过滤器',
+    this.close = '关闭',
+    this.filter = '筛选',
     // SetColumns popup
     this.setColumnsTitle = '列标题',
     // Filter popup
@@ -1473,6 +1489,10 @@ class TrinaGridLocaleText {
     this.setColumns = '컬럼 설정',
     this.setFilter = '필터 설정',
     this.resetFilter = '필터 초기화',
+    this.addFilter = '필터 추가',
+    this.deleteSelectedFilter = '선택한 필터 삭제',
+    this.close = '닫다',
+    this.filter = '필터',
     // SetColumns popup
     this.setColumnsTitle = '컬럼명',
     // Filter popup
@@ -1516,6 +1536,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Выбрать колонки',
     this.setFilter = 'Установить фильтр',
     this.resetFilter = 'Сбросить фильтр',
+    this.addFilter = 'Добавить фильтр',
+    this.deleteSelectedFilter = 'Удалить выбранный фильтр',
+    this.close = 'Закрыть',
+    this.filter = 'Фильтр',
     // SetColumns popup
     this.setColumnsTitle = 'Название колонки',
     // Filter popup
@@ -1559,6 +1583,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Upravit sloupce',
     this.setFilter = 'Nastavit filtr',
     this.resetFilter = 'Resetovat filtr',
+    this.addFilter = 'Přidat Filtr',
+    this.deleteSelectedFilter = 'Smazat vybraný filtr',
+    this.close = 'Zavřít',
+    this.filter = 'Filtr',
     // SetColumns popup
     this.setColumnsTitle = 'Název sloupce',
     // Filter popup
@@ -1602,6 +1630,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Definir colunas',
     this.setFilter = 'Definir fitros',
     this.resetFilter = 'Limpar filtros',
+    this.addFilter = 'Adicionar filtro',
+    this.deleteSelectedFilter = 'Excluir filtro selecionado',
+    this.close = 'Fechar',
+    this.filter = 'Filtro',
     // SetColumns popup
     this.setColumnsTitle = 'Título da coluna',
     // Filter popup
@@ -1645,6 +1677,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Eligir columnas',
     this.setFilter = 'Definir fitros',
     this.resetFilter = 'Limpiar filtros',
+    this.addFilter = 'Añadir filtro',
+    this.deleteSelectedFilter = 'Eliminar el filtro seleccionado',
+    this.close = 'Сerca',
+    this.filter = 'Filtro',
     // SetColumns popup
     this.setColumnsTitle = 'Título de la columna',
     // Filter popup
@@ -1688,6 +1724,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'تنظیم ستون ها',
     this.setFilter = 'اعمال فیلتر',
     this.resetFilter = 'ریست فیلتر',
+    this.addFilter = 'فیلتر را اضافه کنید',
+    this.deleteSelectedFilter = 'حذف فیلتر انتخاب شده',
+    this.close = 'بستن',
+    this.filter = 'فیلتر کنید',
     // SetColumns popup
     this.setColumnsTitle = 'عنوان ستون',
     // Filter popup
@@ -1731,6 +1771,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'إدراج أعمدة',
     this.setFilter = 'فلترة',
     this.resetFilter = 'تهيئة الفلترة',
+    this.addFilter = 'إضافة عامل تصفية',
+    this.deleteSelectedFilter = 'حذف عامل التصفية المحدد',
+    this.close = 'يغلق',
+    this.filter = 'منقي',
     // SetColumns popup
     this.setColumnsTitle = 'اسم العمود',
     // Filter popup
@@ -1774,6 +1818,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Sett kolonner',
     this.setFilter = 'Sett filter',
     this.resetFilter = 'Tilbakestill filter',
+    this.addFilter = 'Legg til filter',
+    this.deleteSelectedFilter = 'Slett valgt filter',
+    this.close = 'Lukk',
+    this.filter = 'Filter',
     // SetColumns popup
     this.setColumnsTitle = 'Kolonnetittel',
     // Filter popup
@@ -1817,6 +1865,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Spalten auswählen',
     this.setFilter = 'Filter anwenden',
     this.resetFilter = 'Filter zurücksetzen',
+    this.addFilter = 'Filter hinzufügen',
+    this.deleteSelectedFilter = 'Ausgewählten Filter löschen',
+    this.close = 'Schließen',
+    this.filter = 'Filter',
     // SetColumns popup
     this.setColumnsTitle = 'Spaltentitel',
     // Filter popup
@@ -1860,6 +1912,10 @@ class TrinaGridLocaleText {
     this.setColumns = 'Sütunları seç',
     this.setFilter = 'Filtre uygula',
     this.resetFilter = 'Filtreyi sıfırla',
+    this.addFilter = 'Filtre ekle',
+    this.deleteSelectedFilter = 'Seçilen Filtreyi sil',
+    this.close = 'Kapalı',
+    this.filter = 'Filtre',
     // SetColumns popup
     this.setColumnsTitle = 'Sütun başlıkları',
     // Filter popup
@@ -1903,6 +1959,10 @@ class TrinaGridLocaleText {
     this.setColumns = '列の表示設定',
     this.setFilter = 'フィルタの作成',
     this.resetFilter = 'フィルタの削除',
+    this.addFilter = 'フィルターを追加',
+    this.deleteSelectedFilter = '選択したフィルターを削除する',
+    this.close = '近い',
+    this.filter = 'フィルター',
     // SetColumns popup
     this.setColumnsTitle = '列のタイトル',
     // Filter popup
@@ -1949,6 +2009,10 @@ class TrinaGridLocaleText {
             setColumns == other.setColumns &&
             setFilter == other.setFilter &&
             resetFilter == other.resetFilter &&
+            addFilter == other.addFilter &&
+            deleteSelectedFilter == other.deleteSelectedFilter &&
+            close == other.close &&
+            filter == other.filter &&
             setColumnsTitle == other.setColumnsTitle &&
             filterColumn == other.filterColumn &&
             filterType == other.filterType &&
@@ -1987,6 +2051,10 @@ class TrinaGridLocaleText {
         setColumns,
         setFilter,
         resetFilter,
+        addFilter,
+        deleteSelectedFilter,
+        close,
+        filter,
         setColumnsTitle,
         filterColumn,
         filterType,

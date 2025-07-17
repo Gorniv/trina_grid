@@ -582,6 +582,7 @@ class _ColumnTextWidgetState extends TrinaStateWithChange<_ColumnTextWidget> {
                 color: stateManager.configuration.style.iconColor,
                 size: stateManager.configuration.style.iconSize,
               ),
+              tooltip: stateManager.configuration.localeText.filter,
               onPressed: _handleOnPressedFilter,
               constraints: BoxConstraints(
                 maxHeight: widget.height +
