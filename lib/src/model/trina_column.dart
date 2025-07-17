@@ -200,6 +200,15 @@ class TrinaColumn {
   /// Hide the column.
   bool hide;
 
+  ///Set hint text for filter field
+  String? filterHintText;
+
+  ///Set hint text color for filter field
+  Color? filterHintTextColor;
+
+  ///Set suffix icon for filter field
+  Widget? filterSuffixIcon;
+
   /// The widget of the filter column, this can be customized with the multiple constructors, defaults to a [TrinaFilterColumnWidgetDelegate.initial()]
   TrinaFilterColumnWidgetDelegate? filterWidgetDelegate;
 
@@ -318,20 +327,29 @@ class TrinaColumn {
     this.enableContextMenu = true,
     this.enableDropToResize = true,
     this.enableFilterMenuItem = true,
+    this.filterHintText,
+    this.filterHintTextColor,
+    this.filterSuffixIcon,
     this.enableHideColumnMenuItem = true,
     this.enableSetColumnsMenuItem = true,
     this.enableAutoEditing = false,
     this.enableEditingMode = true,
     this.hide = false,
-    this.filterWidgetDelegate =
-        const TrinaFilterColumnWidgetDelegate.textField(),
+    TrinaFilterColumnWidgetDelegate? filterWidgetDelegate,
     this.disableRowCheckboxWhen,
     this.validator,
     this.editCellRenderer,
     this.filterEnterKeyAction,
     this.enableCellMerge = true,
   })  : _key = UniqueKey(),
-        _checkReadOnly = checkReadOnly;
+        _checkReadOnly = checkReadOnly,
+        // Use provided filterWidgetDelegate or create one with column-level properties
+        filterWidgetDelegate = filterWidgetDelegate ??
+            TrinaFilterColumnWidgetDelegate.textField(
+              filterHintText: filterHintText,
+              filterHintTextColor: filterHintTextColor,
+              filterSuffixIcon: filterSuffixIcon,
+            );
 
   final Key _key;
 
