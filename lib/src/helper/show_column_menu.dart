@@ -88,6 +88,7 @@ Future<T?>? showColumnMenu<T>({
   required BuildContext context,
   required Offset position,
   required List<PopupMenuEntry<T>> items,
+  ShapeBorder? shape,
   Color backgroundColor = Colors.white,
 }) {
   final RenderBox overlay =
@@ -120,6 +121,7 @@ Future<T?>? showColumnMenu<T>({
   return showMenu<T>(
     context: context,
     color: backgroundColor,
+    shape: shape,
     position: RelativeRect.fromLTRB(
       adjustedLeft,
       adjustedTop,
@@ -139,7 +141,7 @@ List<PopupMenuEntry<dynamic>> _getDefaultColumnMenuItems({
       ? TrinaGridStyleConfig.defaultDarkCellTextStyle
       : TrinaGridStyleConfig.defaultLightCellTextStyle;
 
-  final textTheme = defaultTextStyle.merge(stateManager.style.cellTextStyle);
+  final textTheme = defaultTextStyle.merge(stateManager.style.tooltipTextStyle);
   final Color textColor = textTheme.color!;
 
   final Color disableTextColor = textColor.withAlpha((0.5 * 255).toInt());

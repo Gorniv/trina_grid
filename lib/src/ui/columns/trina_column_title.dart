@@ -67,11 +67,16 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
     _sort = update<TrinaColumnSort>(_sort, widget.column.sort);
   }
 
-  void _showContextMenu(BuildContext context, Offset position) async {
+  void _showContextMenu(
+    BuildContext context,
+    Offset position,
+    ShapeBorder? shape,
+  ) async {
     final selected = await showColumnMenu(
       context: context,
       position: position,
       backgroundColor: stateManager.style.menuBackgroundColor,
+      shape: shape,
       items: stateManager.columnMenuDelegate.buildMenuItems(
         stateManager: stateManager,
         column: widget.column,
@@ -118,11 +123,11 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
     _columnRightPosition = event.position;
   }
 
-  void _handleOnPointUp(PointerUpEvent event) {
+  void _handleOnPointUp(PointerUpEvent event, ShapeBorder? shape) {
     if (_isPointMoving) {
       stateManager.updateCorrectScrollOffset();
     } else if (mounted && widget.column.enableContextMenu) {
-      _showContextMenu(context, event.position);
+      _showContextMenu(context, event.position, shape);
     }
 
     _isPointMoving = false;
@@ -184,7 +189,14 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
                 ? Listener(
                     onPointerDown: _handleOnPointDown,
                     onPointerMove: _handleOnPointMove,
-                    onPointerUp: _handleOnPointUp,
+                    onPointerUp: (PointerUpEvent event) => _handleOnPointUp(
+                      event,
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            stateManager.gridPopupBorderRadius ??
+                                BorderRadius.zero,
+                      ),
+                    ),
                     child: contextMenuIcon,
                   )
                 : contextMenuIcon,
@@ -230,13 +242,28 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
           ? Listener(
               onPointerDown: _handleOnPointDown,
               onPointerMove: _handleOnPointMove,
-              onPointerUp: _handleOnPointUp,
+              onPointerUp: (PointerUpEvent event) => _handleOnPointUp(
+                event,
+                RoundedRectangleBorder(
+                  borderRadius:
+                      stateManager.gridPopupBorderRadius ??
+                          BorderRadius.zero,
+                ),
+              ),
               child: contextMenuIcon,
             )
           : contextMenuIcon,
       isFiltered: isFiltered,
       showContextMenu:
-          mounted && widget.column.enableContextMenu ? _showContextMenu : null,
+          mounted && widget.column.enableContextMenu 
+              ? (BuildContext context, Offset position) => _showContextMenu(
+                  context, 
+                  position, 
+                  RoundedRectangleBorder(
+                    borderRadius: stateManager.gridPopupBorderRadius ?? BorderRadius.zero,
+                  ),
+                )
+              : null,
     );
   }
 }

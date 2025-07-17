@@ -305,6 +305,10 @@ class TrinaGridStyleConfig {
     Color? cellUnselectedColor,
     Color? cellActiveColor,
     this.cellTextStyle = defaultLightCellTextStyle,
+    this.tooltipTextStyle = const TextStyle(
+      color: Colors.black,
+      fontSize: 14,
+    ),
     this.columnContextIcon = Icons.dehaze,
     this.columnResizeIcon = Icons.code_sharp,
     this.columnAscendingIcon,
@@ -387,6 +391,10 @@ class TrinaGridStyleConfig {
     Color? cellUnselectedColor,
     Color? cellActiveColor,
     this.cellTextStyle = defaultDarkCellTextStyle,
+    this.tooltipTextStyle = const TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+    ),
     this.columnContextIcon = Icons.dehaze,
     this.columnResizeIcon = Icons.code_sharp,
     this.columnAscendingIcon,
@@ -581,6 +589,9 @@ class TrinaGridStyleConfig {
   /// Cell - text style
   final TextStyle cellTextStyle;
 
+  /// Tooltip - text style
+  final TextStyle tooltipTextStyle;
+
   /// Icon that can open a pop-up menu next to the column title
   /// when [enableContextMenu] of [TrinaColumn] is true.
   final IconData columnContextIcon;
@@ -676,6 +687,7 @@ class TrinaGridStyleConfig {
     Color? cellUnselectedColor,
     Color? cellActiveColor,
     TextStyle? cellTextStyle,
+    TextStyle? tooltipTextStyle,
     IconData? columnContextIcon,
     IconData? columnResizeIcon,
     TrinaOptional<Icon?>? columnAscendingIcon,
@@ -752,6 +764,7 @@ class TrinaGridStyleConfig {
       cellUnselectedColor: cellUnselectedColor ?? this.cellUnselectedColor,
       cellActiveColor: cellActiveColor ?? this.cellActiveColor,
       cellTextStyle: cellTextStyle ?? this.cellTextStyle,
+      tooltipTextStyle: tooltipTextStyle ?? this.tooltipTextStyle,
       columnContextIcon: columnContextIcon ?? this.columnContextIcon,
       columnResizeIcon: columnResizeIcon ?? this.columnResizeIcon,
       columnAscendingIcon: columnAscendingIcon == null
@@ -821,6 +834,7 @@ class TrinaGridStyleConfig {
             cellUnselectedColor == other.cellUnselectedColor &&
             cellActiveColor == other.cellActiveColor &&
             cellTextStyle == other.cellTextStyle &&
+            tooltipTextStyle == other.tooltipTextStyle &&
             columnContextIcon == other.columnContextIcon &&
             columnResizeIcon == other.columnResizeIcon &&
             columnAscendingIcon == other.columnAscendingIcon &&
@@ -881,6 +895,7 @@ class TrinaGridStyleConfig {
         cellUnselectedColor,
         cellActiveColor,
         cellTextStyle,
+        tooltipTextStyle,
         columnContextIcon,
         columnResizeIcon,
         columnAscendingIcon,
