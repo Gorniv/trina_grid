@@ -6,6 +6,7 @@ class TrinaGridChangeColumnFilterEvent extends TrinaGridEvent {
   final TrinaColumn column;
   final TrinaFilterType filterType;
   final String filterValue;
+  final dynamic filterValueObject;
   final int? debounceMilliseconds;
   final TrinaGridEventType? eventType;
 
@@ -13,6 +14,7 @@ class TrinaGridChangeColumnFilterEvent extends TrinaGridEvent {
     required this.column,
     required this.filterType,
     required this.filterValue,
+    required this.filterValueObject,
     this.debounceMilliseconds,
     this.eventType,
   }) : super(
@@ -23,7 +25,7 @@ class TrinaGridChangeColumnFilterEvent extends TrinaGridEvent {
         );
 
   List<TrinaRow> _getFilterRows(TrinaGridStateManager? stateManager) {
-    List<TrinaRow> foundFilterRows =
+    final List<TrinaRow> foundFilterRows =
         stateManager!.filterRowsByField(column.field);
 
     if (foundFilterRows.isEmpty) {
@@ -33,12 +35,15 @@ class TrinaGridChangeColumnFilterEvent extends TrinaGridEvent {
           columnField: column.field,
           filterType: filterType,
           filterValue: filterValue,
+          filterValueObject: filterValueObject,
         ),
       ];
     }
 
-    foundFilterRows.first.cells[FilterHelper.filterFieldValue]!.value =
-        filterValue;
+    final TrinaCell? row =
+        foundFilterRows.first.cells[FilterHelper.filterFieldValue];
+    row?.value = filterValue;
+    row?.filterValue = filterValueObject;
 
     return stateManager.filterRows;
   }

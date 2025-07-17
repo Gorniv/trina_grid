@@ -39,6 +39,7 @@ class FilterHelper {
     String? columnField,
     TrinaFilterType? filterType,
     String? filterValue,
+    dynamic filterValueObject,
   }) {
     return TrinaRow(
       cells: {
@@ -48,7 +49,10 @@ class FilterHelper {
         filterFieldType: TrinaCell(
           value: filterType ?? const TrinaFilterTypeContains(),
         ),
-        filterFieldValue: TrinaCell(value: filterValue ?? ''),
+        filterFieldValue: TrinaCell(
+          value: filterValue ?? '',
+          filterValue: filterValueObject,
+        ),
       },
     );
   }
@@ -81,8 +85,10 @@ class FilterHelper {
                 flagAllColumns,
                 compareByFilterType(
                   filterType: filterType!,
-                  base: value.value.toString(),
+                  base: value.value?.toString(),
+                  baseObject: value.filterValue,
                   search: e.cells[filterFieldValue]!.value.toString(),
+                  searchObject: e.cells[filterFieldValue]!.filterValue,
                   column: foundColumn,
                 ),
               );
@@ -101,8 +107,12 @@ class FilterHelper {
               compareByFilterType(
                 filterType: filterType!,
                 base: row!.cells[e.cells[filterFieldColumn]!.value]!.value
-                    .toString(),
+                        ?.toString() ??
+                    '',
+                baseObject:
+                    row.cells[e.cells[filterFieldColumn]!.value]!.filterValue,
                 search: e.cells[filterFieldValue]!.value.toString(),
+                searchObject: e.cells[filterFieldValue]!.filterValue,
                 column: foundColumn,
               ),
             );
@@ -213,7 +223,9 @@ class FilterHelper {
   /// Compare [base] and [search] with [TrinaFilterType.compare].
   static bool compareByFilterType({
     required TrinaFilterType filterType,
-    required String base,
+    required dynamic baseObject,
+    required String? base,
+    required dynamic searchObject,
     required String search,
     required TrinaColumn column,
   }) {
@@ -225,7 +237,9 @@ class FilterHelper {
       compare = compare ||
           filterType.compare(
             base: numberColumn.applyFormat(base),
+            baseObject: baseObject,
             search: search,
+            searchObject: searchObject,
             column: column,
           );
 
@@ -236,12 +250,20 @@ class FilterHelper {
     }
 
     return compare ||
-        filterType.compare(base: base, search: search, column: column);
+        filterType.compare(
+          base: base,
+          baseObject: baseObject,
+          search: search,
+          searchObject: searchObject,
+          column: column,
+        );
   }
 
   /// Whether [search] is contains in [base].
   static bool compareContains({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -250,7 +272,9 @@ class FilterHelper {
 
   /// Whether [search] is equals to [base].
   static bool compareEquals({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -263,7 +287,9 @@ class FilterHelper {
 
   /// Whether [base] starts with [search].
   static bool compareStartsWith({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -276,7 +302,9 @@ class FilterHelper {
 
   /// Whether [base] ends with [search].
   static bool compareEndsWith({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -288,7 +316,9 @@ class FilterHelper {
   }
 
   static bool compareGreaterThan({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -296,7 +326,9 @@ class FilterHelper {
   }
 
   static bool compareGreaterThanOrEqualTo({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -304,7 +336,9 @@ class FilterHelper {
   }
 
   static bool compareLessThan({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -312,7 +346,9 @@ class FilterHelper {
   }
 
   static bool compareLessThanOrEqualTo({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -329,7 +365,9 @@ class FilterHelper {
 
   /// Compare [base] with raw regex [search].
   static bool compareRegex({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
   }) {
@@ -346,7 +384,9 @@ class FilterHelper {
   }
 
   static bool compareMultiItems({
+    required dynamic baseObject,
     required String? base,
+    required dynamic searchObject,
     required String? search,
     required TrinaColumn column,
     bool caseSensitive = true,
@@ -613,7 +653,9 @@ class TrinaGridFilterPopupHeader extends StatelessWidget {
 /// [base] is the cell values of the column on which the search is based.
 /// [search] is the value entered by the user to search.
 typedef TrinaCompareFunction = bool Function({
+  required dynamic baseObject,
   required String? base,
+  required dynamic searchObject,
   required String? search,
   required TrinaColumn column,
 });
@@ -634,6 +676,34 @@ class TrinaFilterTypeContains implements TrinaFilterType {
   TrinaCompareFunction get compare => FilterHelper.compareContains;
 
   const TrinaFilterTypeContains();
+}
+
+class TrinaFilterTypeContainsSet implements TrinaFilterType {
+  static String name = 'Contains';
+
+  @override
+  String get title => TrinaFilterTypeContainsSet.name;
+
+  @override
+  TrinaCompareFunction get compare => compareContainsSet;
+
+  const TrinaFilterTypeContainsSet();
+
+  static bool compareContainsSet({
+    required dynamic baseObject,
+    required String? base,
+    required dynamic searchObject,
+    required String? search,
+    required TrinaColumn column,
+  }) {
+    if (searchObject == null || (searchObject is Set<String> && searchObject.isEmpty)) {
+      return true;
+    }
+    if (searchObject != null && searchObject is Set<String> && baseObject != null && baseObject is Set<String>) {
+      return baseObject.any((String e) => searchObject.contains(e));
+    }
+    return true;
+  }
 }
 
 class TrinaFilterTypeEquals implements TrinaFilterType {
@@ -744,12 +814,16 @@ class TrinaFilterTypeMultiItems implements TrinaFilterType {
 
   @override
   TrinaCompareFunction get compare => ({
+        required dynamic baseObject,
         required String? base,
+        required dynamic searchObject,
         required String? search,
         required TrinaColumn column,
       }) =>
           FilterHelper.compareMultiItems(
+            baseObject: baseObject,
             base: base,
+            searchObject: searchObject,
             search: search,
             column: column,
             caseSensitive: caseSensitive,

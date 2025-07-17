@@ -245,6 +245,7 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
         column: widget.column,
         filterType: widget.column.defaultFilter,
         filterValue: changed,
+        filterValueObject: null,
         eventType: TrinaGridEventType.debounce,
         debounceMilliseconds:
             stateManager.configuration.columnFilter.debounceMilliseconds,

@@ -107,6 +107,7 @@ class TrinaGridStateChangeNotifier extends TrinaChangeNotifier
             columnMenuDelegate ?? const TrinaColumnMenuDelegateDefault(),
         notifierFilterResolver = notifierFilterResolver ??
             const TrinaNotifierFilterResolverDefault(),
+        columnsMap = Map.fromEntries(columns.map((e) => MapEntry(e.field, e))),
         gridKey = GlobalKey(),
         _enableChangeTracking = false {
     setConfiguration(configuration);
@@ -131,6 +132,8 @@ class TrinaGridStateChangeNotifier extends TrinaChangeNotifier
 
   @override
   final FilteredList<TrinaColumn> refColumns;
+
+  final Map<String, TrinaColumn> columnsMap;
 
   @override
   final FilteredList<TrinaColumnGroup> refColumnGroups;

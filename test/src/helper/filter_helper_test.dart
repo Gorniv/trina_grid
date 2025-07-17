@@ -459,7 +459,9 @@ void main() {
         return (dynamic a, dynamic b) {
           return FilterHelper.compareByFilterType(
             filterType: filterType,
+            baseObject: null,
             base: a.toString(),
+            searchObject: null,
             search: b.toString(),
             column: column!,
           );

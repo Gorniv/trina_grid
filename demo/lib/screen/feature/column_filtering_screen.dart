@@ -156,7 +156,9 @@ class ClassYouImplemented implements TrinaFilterType {
 
   @override
   get compare => ({
+        required dynamic baseObject,
         required String? base,
+        required dynamic searchObject,
         required String? search,
         required TrinaColumn? column,
       }) {
