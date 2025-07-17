@@ -775,10 +775,13 @@ class _ApplyCellForSetColumnRow implements _Apply {
       return;
     }
 
-    for (var element in refColumns) {
-      row.cells[element.field]!
-        ..setColumn(element)
-        ..setRow(row);
+    for (final TrinaColumn element in refColumns) {
+      final TrinaCell? cells = row.cells[element.field];
+      if (cells != null) {
+        cells
+          ..setColumn(element)
+          ..setRow(row);
+      }
     }
   }
 }
