@@ -71,7 +71,13 @@ class TrinaColumnMenuDelegateDefault
         stateManager.showSetColumnsPopup(context);
         break;
       case defaultMenuSetFilter:
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
+        if (stateManager.showFilterPopupCustom != null) {
+          stateManager.showFilterPopupCustom!(context, calledColumn: column);
+          break;
+        }
         stateManager.showFilterPopup(context, calledColumn: column);
         break;
       case defaultMenuResetFilter:

@@ -97,6 +97,7 @@ class TrinaGridStateChangeNotifier extends TrinaChangeNotifier
     this.onLazyFetchCompleted,
     TrinaColumnMenuDelegate? columnMenuDelegate,
     TrinaChangeNotifierFilterResolver? notifierFilterResolver,
+    this.showFilterPopupCustom,
     TrinaGridConfiguration configuration = const TrinaGridConfiguration(),
     TrinaGridMode? mode,
   })  : refColumns = FilteredList(initialList: columns),
@@ -210,6 +211,9 @@ class TrinaGridStateChangeNotifier extends TrinaChangeNotifier
 
   /// Callback triggered when lazy fetch is completed
   final TrinaOnLazyFetchCompletedEventCallback? onLazyFetchCompleted;
+
+  /// Custom filter popup callback
+  final TrinaShowFilterPopupCustomCallBack? showFilterPopupCustom;
 
   /// Flag to enable/disable change tracking
   bool _enableChangeTracking = false;
@@ -347,6 +351,7 @@ class TrinaGridStateManager extends TrinaGridStateChangeNotifier {
     super.onLazyFetchCompleted,
     super.columnMenuDelegate,
     super.notifierFilterResolver,
+    super.showFilterPopupCustom,
     super.configuration,
     super.mode,
   }) {

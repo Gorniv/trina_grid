@@ -54,6 +54,12 @@ typedef TrinaRowColorCallback = Color Function(
 typedef TrinaSelectDateCallBack = Future<DateTime?> Function(
     TrinaCell dateCell, TrinaColumn column);
 
+typedef TrinaShowFilterPopupCustomCallBack = void Function(
+    BuildContext context, {
+    TrinaColumn? calledColumn,
+    void Function()? onClosed,
+});
+
 typedef TrinaOnFilteredEventCallback = void Function(
     TrinaGridSetColumnFilterEvent event);
 
@@ -110,6 +116,7 @@ class TrinaGrid extends TrinaStatefulWidget {
     this.columnMenuDelegate,
     this.configuration = const TrinaGridConfiguration(),
     this.notifierFilterResolver,
+    this.showFilterPopupCustom,
     this.mode = TrinaGridMode.normal,
     this.onValidationFailed,
     this.onLazyFetchCompleted,
@@ -372,6 +379,9 @@ class TrinaGrid extends TrinaStatefulWidget {
   /// {@endtemplate}
   final TrinaColumnMenuDelegate? columnMenuDelegate;
 
+  /// Custom filter popup callback
+  final TrinaShowFilterPopupCustomCallBack? showFilterPopupCustom;
+
   /// {@template trina_grid_property_configuration}
   /// In [configuration], you can change the style and settings or text used in [TrinaGrid].
   /// {@endtemplate}
@@ -617,6 +627,7 @@ class TrinaGridState extends TrinaStateWithChange<TrinaGrid> {
       onLazyFetchCompleted: widget.onLazyFetchCompleted,
       columnMenuDelegate: widget.columnMenuDelegate,
       notifierFilterResolver: widget.notifierFilterResolver,
+      showFilterPopupCustom: widget.showFilterPopupCustom,
       configuration: widget.configuration,
       mode: widget.mode,
     );
