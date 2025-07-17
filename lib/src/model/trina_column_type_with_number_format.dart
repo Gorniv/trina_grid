@@ -12,6 +12,8 @@ mixin TrinaColumnTypeWithNumberFormat {
 
   String? get locale;
 
+  dynamic get defaultValue;
+
   bool isValid(dynamic value) {
     if (!isNumeric(value)) {
       return false;
@@ -33,17 +35,19 @@ mixin TrinaColumnTypeWithNumberFormat {
   }
 
   dynamic makeCompareValue(dynamic v) {
-    return v.runtimeType != num ? num.tryParse(v.toString()) ?? 0 : v;
+    return v.runtimeType != num
+        ? num.tryParse(v.toString()) ?? defaultValue
+        : v;
   }
 
   String applyFormat(dynamic value) {
     num number = num.tryParse(
           value.toString().replaceAll(numberFormat.symbols.DECIMAL_SEP, '.'),
         ) ??
-        0;
+        defaultValue;
 
     if (negative == false && number < 0) {
-      number = 0;
+      number = defaultValue;
     }
 
     return numberFormat.format(number);
@@ -61,9 +65,9 @@ mixin TrinaColumnTypeWithNumberFormat {
         .replaceAll(RegExp('[^$match]'), '')
         .replaceFirst(numberFormat.symbols.DECIMAL_SEP, '.');
 
-    final num formattedNumber = num.tryParse(formatted) ?? 0;
+    final num formattedNumber = num.tryParse(formatted) ?? defaultValue;
 
-    return formattedNumber.isFinite ? formattedNumber : 0;
+    return formattedNumber.isFinite ? formattedNumber : defaultValue;
   }
 
   bool isNumeric(dynamic s) {

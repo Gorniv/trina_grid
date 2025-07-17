@@ -36,6 +36,11 @@ class _NumberTypeColumnScreenState extends State<NumberTypeColumnScreen> {
         ),
       ),
       TrinaColumn(
+        title: 'Default value 11',
+        field: 'default_value',
+        type: TrinaColumnType.number(defaultValue: 11),
+      ),
+      TrinaColumn(
         title: '2 decimal places',
         field: 'two_decimal',
         type: TrinaColumnType.number(
@@ -64,6 +69,7 @@ class _NumberTypeColumnScreenState extends State<NumberTypeColumnScreen> {
         cells: {
           'negative_true': TrinaCell(value: -12345),
           'negative_false': TrinaCell(value: 12345),
+          'default_value': TrinaCell(value: 25),
           'two_decimal': TrinaCell(value: 12345.12),
           'three_decimal': TrinaCell(value: 12345.123),
           'three_decimal_with_denmark_locale': TrinaCell(value: 12345678.123),
@@ -73,6 +79,7 @@ class _NumberTypeColumnScreenState extends State<NumberTypeColumnScreen> {
         cells: {
           'negative_true': TrinaCell(value: -12345),
           'negative_false': TrinaCell(value: 12345),
+          'default_value': TrinaCell(value: null),
           'two_decimal': TrinaCell(value: 12345.12),
           'three_decimal': TrinaCell(value: 12345.123),
           'three_decimal_with_denmark_locale': TrinaCell(value: 12345678.123),
@@ -82,6 +89,7 @@ class _NumberTypeColumnScreenState extends State<NumberTypeColumnScreen> {
         cells: {
           'negative_true': TrinaCell(value: -12345),
           'negative_false': TrinaCell(value: 12345),
+          'default_value': TrinaCell(value: 100),
           'two_decimal': TrinaCell(value: 12345.12),
           'three_decimal': TrinaCell(value: 12345.123),
           'three_decimal_with_denmark_locale': TrinaCell(value: 12345678.123),

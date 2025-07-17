@@ -43,7 +43,7 @@ class TrinaColumnTypeCurrency
           decimalDigits: decimalDigits,
           customPattern: format,
         ) {
-    decimalPoint = numberFormat.decimalDigits ?? 0;
+    decimalPoint = numberFormat.decimalDigits ?? defaultValue;
   }
 
   @override
