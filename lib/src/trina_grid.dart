@@ -54,6 +54,9 @@ typedef TrinaRowColorCallback = Color Function(
 typedef TrinaSelectDateCallBack = Future<DateTime?> Function(
     TrinaCell dateCell, TrinaColumn column);
 
+typedef TrinaOnFilteredEventCallback = void Function(
+    TrinaGridSetColumnFilterEvent event);
+
 typedef TrinaOnActiveCellChangedEventCallback = void Function(
     TrinaGridOnActiveCellChangedEvent event);
 
@@ -87,6 +90,7 @@ class TrinaGrid extends TrinaStatefulWidget {
     this.editCellRenderer,
     this.columnGroups,
     this.onLoaded,
+    this.onFiltered,
     this.onChanged,
     this.onSelected,
     this.onSorted,
@@ -190,6 +194,8 @@ class TrinaGrid extends TrinaStatefulWidget {
   /// ```
   /// {@endtemplate}
   final TrinaOnLoadedEventCallback? onLoaded;
+
+  final TrinaOnFilteredEventCallback? onFiltered;
 
   /// {@template trina_grid_property_onChanged}
   /// [onChanged] is called when the cell value changes.
@@ -594,6 +600,7 @@ class TrinaGridState extends TrinaStateWithChange<TrinaGrid> {
       onChanged: widget.onChanged,
       onSelected: widget.onSelected,
       onSorted: widget.onSorted,
+      onFiltered: widget.onFiltered,
       onRowChecked: widget.onRowChecked,
       onRowDoubleTap: widget.onRowDoubleTap,
       onRowSecondaryTap: widget.onRowSecondaryTap,

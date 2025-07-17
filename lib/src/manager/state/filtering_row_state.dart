@@ -111,6 +111,9 @@ mixin FilteringRowState implements ITrinaGridState {
               .isNotEmpty,
         )
         .toList();
+    final TrinaGridSetColumnFilterEvent event =
+        TrinaGridSetColumnFilterEvent(filterRows: rows);
+    onFiltered?.call(event);
   }
 
   @override

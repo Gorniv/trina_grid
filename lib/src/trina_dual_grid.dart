@@ -198,6 +198,7 @@ class TrinaDualGridState extends State<TrinaDualGrid> {
           }
         },
         onSorted: props.onSorted,
+        onFiltered: props.onFiltered,
         onRowChecked: props.onRowChecked,
         onRowDoubleTap: props.onRowDoubleTap,
         onRowSecondaryTap: props.onRowSecondaryTap,
@@ -609,6 +610,8 @@ class TrinaDualGridProps {
   /// {@macro trina_grid_property_onLoaded}
   final TrinaOnLoadedEventCallback? onLoaded;
 
+  final TrinaOnFilteredEventCallback? onFiltered;
+
   /// {@macro trina_grid_property_onChanged}
   final TrinaOnChangedEventCallback? onChanged;
 
@@ -667,6 +670,7 @@ class TrinaDualGridProps {
     required this.rows,
     this.columnGroups,
     this.onLoaded,
+    this.onFiltered,
     this.onChanged,
     this.onSorted,
     this.onRowChecked,
@@ -689,6 +693,7 @@ class TrinaDualGridProps {
     List<TrinaRow>? rows,
     TrinaOptional<List<TrinaColumnGroup>?>? columnGroups,
     TrinaOptional<TrinaOnLoadedEventCallback?>? onLoaded,
+    TrinaOptional<TrinaOnFilteredEventCallback?>? onFiltered,
     TrinaOptional<TrinaOnChangedEventCallback?>? onChanged,
     TrinaOptional<TrinaOnSortedEventCallback?>? onSorted,
     TrinaOptional<TrinaOnRowCheckedEventCallback?>? onRowChecked,
@@ -711,6 +716,7 @@ class TrinaDualGridProps {
       columnGroups:
           columnGroups == null ? this.columnGroups : columnGroups.value,
       onLoaded: onLoaded == null ? this.onLoaded : onLoaded.value,
+      onFiltered: onFiltered == null ? this.onFiltered : onFiltered.value,
       onChanged: onChanged == null ? this.onChanged : onChanged.value,
       onSorted: onSorted == null ? this.onSorted : onSorted.value,
       onRowChecked:

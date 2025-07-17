@@ -18,6 +18,8 @@ abstract class IGridState {
 
   TrinaOnSortedEventCallback? get onSorted;
 
+  TrinaOnFilteredEventCallback? get onFiltered;
+
   TrinaOnRowCheckedEventCallback? get onRowChecked;
 
   TrinaOnRowDoubleTapEventCallback? get onRowDoubleTap;
