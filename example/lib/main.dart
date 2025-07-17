@@ -49,6 +49,11 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
       type: TrinaColumnType.number(),
     ),
     TrinaColumn(
+      title: 'Buy',
+      field: 'buy',
+      type: TrinaColumnType.bool(),
+    ),
+    TrinaColumn(
       title: 'Role',
       field: 'role',
       type: TrinaColumnType.select(<String>[
@@ -116,6 +121,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
         'id': TrinaCell(value: 'user1'),
         'name': TrinaCell(value: 'Mike'),
         'age': TrinaCell(value: 20),
+        'buy': TrinaCell(value: false),
         'role': TrinaCell(value: 'Programmer'),
         'role2': TrinaCell(value: 'Programmer'),
         'joined': TrinaCell(value: '2021-01-01'),
@@ -128,6 +134,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
         'id': TrinaCell(value: 'user2'),
         'name': TrinaCell(value: 'Jack'),
         'age': TrinaCell(value: 25),
+        'buy': TrinaCell(value: true),
         'role': TrinaCell(value: 'Designer'),
         'role2': TrinaCell(value: 'Designer'),
         'joined': TrinaCell(value: '2021-02-01'),
@@ -140,6 +147,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
         'id': TrinaCell(value: 'user3'),
         'name': TrinaCell(value: 'Suzi'),
         'age': TrinaCell(value: 40),
+        'buy': TrinaCell(value: null),
         'role': TrinaCell(value: 'Owner'),
         'role2': TrinaCell(value: 'Owner'),
         'joined': TrinaCell(value: '2021-03-01'),

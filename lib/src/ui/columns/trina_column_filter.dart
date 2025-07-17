@@ -261,6 +261,33 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
     final style = stateManager.style;
     final filterDelegate = widget.column.filterWidgetDelegate;
 
+    // Handle boolean column type with checkbox
+    if (widget.column.type is TrinaColumnTypeBoolean) {
+      return SizedBox(
+        height: stateManager.columnFilterHeight,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: BorderDirectional(
+              top: BorderSide(color: style.borderColor),
+              end: style.enableColumnBorderVertical
+                  ? BorderSide(color: style.borderColor)
+                  : BorderSide.none,
+            ),
+          ),
+          child: Padding(
+            padding: _padding,
+            child: Center(
+              child: Checkbox(
+                value: _controller.text == 'true' ? true : false,
+                onChanged: (bool? value) =>
+                    _handleOnChanged(value?.toString() ?? ''),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     Widget? suffixIcon;
 
     if (filterDelegate?.filterSuffixIcon != null) {

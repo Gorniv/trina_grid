@@ -329,6 +329,8 @@ class TrinaGridStyleConfig {
         TrinaGridSettings.cellHorizontalBorderWidth,
     this.filterHeaderColor,
     this.filterHeaderIconColor,
+    this.addIconColor,
+    this.removeIconColor,
   })  : columnCheckedColor = (columnCheckedColor ?? activatedColor),
         cellCheckedColor = (cellCheckedColor ?? activatedColor),
         columnUnselectedColor = (columnUnselectedColor ?? iconColor),
@@ -415,6 +417,8 @@ class TrinaGridStyleConfig {
         TrinaGridSettings.cellHorizontalBorderWidth,
     this.filterHeaderColor,
     this.filterHeaderIconColor,
+    this.addIconColor,
+    this.removeIconColor,
   })  : columnCheckedColor = (columnCheckedColor ?? activatedColor),
         cellCheckedColor = (cellCheckedColor ?? activatedColor),
         columnUnselectedColor = (columnUnselectedColor ?? iconColor),
@@ -524,6 +528,9 @@ class TrinaGridStyleConfig {
 
   /// Icon color. (column menu, cell of popup type, pagination plugin)
   final Color iconColor;
+
+  final Color? addIconColor;
+  final Color? removeIconColor;
 
   /// Disabled icon color. (pagination plugin)
   final Color disabledIconColor;
@@ -703,6 +710,8 @@ class TrinaGridStyleConfig {
     double? cellHorizontalBorderWidth,
     Color? filterHeaderColor,
     Color? filterHeaderIconColor,
+    Color? addIconColor,
+    Color? removeIconColor,
   }) {
     return TrinaGridStyleConfig(
       cellVerticalBorderWidth:
@@ -785,6 +794,8 @@ class TrinaGridStyleConfig {
       filterHeaderColor: filterHeaderColor ?? this.filterHeaderColor,
       filterHeaderIconColor:
           filterHeaderIconColor ?? this.filterHeaderIconColor,
+      addIconColor: addIconColor ?? this.addIconColor,
+      removeIconColor: removeIconColor ?? this.removeIconColor,
     );
   }
 

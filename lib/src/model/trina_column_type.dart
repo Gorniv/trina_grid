@@ -9,6 +9,17 @@ abstract interface class TrinaColumnType {
     return TrinaColumnTypeText(defaultValue: defaultValue);
   }
 
+  /// Set as a bool column.
+  factory TrinaColumnType.bool() {
+    return TrinaColumnTypeBoolean(
+      defaultValue: false,
+      allowEmpty: false,
+      trueText: 'Yes',
+      falseText: 'No',
+      onItemSelected: (event) {},
+    );
+  }
+
   /// Set to numeric column.
   ///
   /// [format]
