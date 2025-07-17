@@ -279,6 +279,9 @@ class TrinaGridStateChangeNotifier extends TrinaChangeNotifier
 
     setGroupToColumn();
   }
+
+  @override
+  FilteredListFilter<TrinaRow>? savedFilter;
 }
 
 /// It manages the state of the [TrinaGrid] and contains methods used by the grid.

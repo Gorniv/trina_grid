@@ -170,36 +170,82 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
 
   /// [TrinaGridStateManager] has many methods and properties to dynamically manipulate the grid.
   /// You can manipulate the grid dynamically at runtime by passing this through the [onLoaded] callback.
-  late final TrinaGridStateManager stateManager;
+  TrinaGridStateManager? stateManager;
+  int indexKey = 0;
+
+  TrinaGridOnSortedEvent? onSorted;
 
   @override
   Widget build(BuildContext context) {
+    // stateManager.filter
+    // stateManager.setFilter();
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(15),
-        child: TrinaGrid(
-            columns: columns,
-            rows: rows,
-            columnGroups: columnGroups,
-            onLoaded: (TrinaGridOnLoadedEvent event) {
-              stateManager = event.stateManager;
-              stateManager.setShowColumnFilter(true);
-            },
-            onChanged: (TrinaGridOnChangedEvent event) {
-              print(event);
-            },
-            configuration: const TrinaGridConfiguration(),
-            selectDateCallback: (TrinaCell cell, TrinaColumn column) async {
-              return showDatePicker(
-                  context: context,
-                  initialDate: TrinaDateTimeHelper.parseOrNullWithFormat(
-                        cell.value,
-                        column.type.date.format,
-                      ) ??
-                      DateTime.now(),
-                  firstDate: column.type.date.startDate ?? DateTime(0),
-                  lastDate: column.type.date.endDate ?? DateTime(9999));
-            }),
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  indexKey++;
+                });
+              },
+              child: Text('refresh'),
+            ),
+            Flexible(
+              child: TrinaGrid(
+                  key: ValueKey(indexKey),
+                  columns: columns,
+                  rows: rows,
+                  columnGroups: columnGroups,
+                  onSorted: (event) {
+                    print(event);
+                    onSorted = event;
+                  },
+                  onLoaded: (TrinaGridOnLoadedEvent event) {
+                    if (stateManager == null) {
+                      stateManager = event.stateManager;
+                      stateManager?.setShowColumnFilter(true);
+                    } else {
+                      final filters = stateManager!.savedFilter;
+                      final filterRows = stateManager!.filterRows;
+                      stateManager = event.stateManager;
+                      stateManager?.setShowColumnFilter(true);
+                      stateManager!
+                          .setFilter(filters, filterRowsApply: filterRows);
+                      if (onSorted != null) {
+                        if (onSorted!.column.sort ==
+                            TrinaColumnSort.ascending) {
+                          stateManager!.sortAscending(
+                            onSorted!.column,
+                          );
+                        }
+                        if (onSorted!.column.sort ==
+                            TrinaColumnSort.descending) {
+                          stateManager!.sortDescending(onSorted!.column);
+                        }
+                      }
+                    }
+                  },
+                  onChanged: (TrinaGridOnChangedEvent event) {
+                    print(event);
+                  },
+                  configuration: const TrinaGridConfiguration(),
+                  selectDateCallback:
+                      (TrinaCell cell, TrinaColumn column) async {
+                    return showDatePicker(
+                        context: context,
+                        initialDate: TrinaDateTimeHelper.parseOrNullWithFormat(
+                              cell.value,
+                              column.type.date.format,
+                            ) ??
+                            DateTime.now(),
+                        firstDate: column.type.date.startDate ?? DateTime(0),
+                        lastDate: column.type.date.endDate ?? DateTime(9999));
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }

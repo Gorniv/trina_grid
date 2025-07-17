@@ -6,7 +6,8 @@ abstract class IFilteringRowState {
 
   bool get hasFilter;
 
-  void setFilter(FilteredListFilter<TrinaRow>? filter, {bool notify = true});
+  void setFilter(FilteredListFilter<TrinaRow>? filter,
+      {bool notify = true, List<TrinaRow>? filterRowsApply});
 
   void setFilterWithFilterRows(List<TrinaRow> rows, {bool notify = true});
 
@@ -26,6 +27,8 @@ abstract class IFilteringRowState {
     BuildContext context, {
     TrinaColumn? calledColumn,
   });
+
+  FilteredListFilter<TrinaRow>? savedFilter;
 }
 
 class _State {
@@ -43,7 +46,11 @@ mixin FilteringRowState implements ITrinaGridState {
       refRows.hasFilter || (filterOnlyEvent && filterRows.isNotEmpty);
 
   @override
-  void setFilter(FilteredListFilter<TrinaRow>? filter, {bool notify = true}) {
+  void setFilter(FilteredListFilter<TrinaRow>? filter,
+      {bool notify = true, List<TrinaRow>? filterRowsApply}) {
+    if (filterRowsApply != null) {
+      setFilterRows(filterRowsApply);
+    }
     if (filter == null) {
       setFilterRows([]);
     }
@@ -59,7 +66,7 @@ mixin FilteringRowState implements ITrinaGridState {
       row.setState(TrinaRowState.none);
     }
 
-    var savedFilter = filter;
+    savedFilter = filter;
 
     if (filter != null) {
       savedFilter = (TrinaRow row) {
