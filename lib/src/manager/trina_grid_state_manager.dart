@@ -73,6 +73,7 @@ class TrinaGridStateChangeNotifier extends TrinaChangeNotifier
     required List<TrinaRow> rows,
     required this.gridFocusNode,
     required this.scroll,
+    this.gridStateKey,
     List<TrinaColumnGroup>? columnGroups,
     this.rowsCacheExtent,
     this.rowWrapper,
@@ -145,6 +146,8 @@ class TrinaGridStateChangeNotifier extends TrinaChangeNotifier
 
   @override
   final FocusNode gridFocusNode;
+
+  final String? gridStateKey;
 
   @override
   final TrinaGridScrollController scroll;
@@ -327,6 +330,7 @@ class TrinaGridStateManager extends TrinaGridStateChangeNotifier {
     required super.rows,
     required super.gridFocusNode,
     required super.scroll,
+    super.gridStateKey,
     super.rowsCacheExtent,
     super.rowWrapper,
     super.editCellRenderer,

@@ -117,6 +117,7 @@ class TrinaGrid extends TrinaStatefulWidget {
     this.configuration = const TrinaGridConfiguration(),
     this.notifierFilterResolver,
     this.showFilterPopupCustom,
+    this.gridStateKey,
     this.mode = TrinaGridMode.normal,
     this.onValidationFailed,
     this.onLazyFetchCompleted,
@@ -407,6 +408,8 @@ class TrinaGrid extends TrinaStatefulWidget {
   /// {@macro trina_grid_mode_popup}
   final TrinaGridMode mode;
 
+  final String? gridStateKey;
+
   /// Callback triggered when cell validation fails
   final TrinaOnValidationFailedCallback? onValidationFailed;
 
@@ -596,6 +599,7 @@ class TrinaGridState extends TrinaStateWithChange<TrinaGrid> {
 
   void _initStateManager() {
     _stateManager = TrinaGridStateManager(
+      gridStateKey: widget.gridStateKey,
       columns: widget.columns,
       rows: widget.rows,
       gridFocusNode: _gridFocusNode,
