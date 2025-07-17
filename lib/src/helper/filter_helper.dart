@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:trina_grid/trina_grid.dart';
 
 typedef SetFilterPopupHandler = void Function(
-    TrinaGridStateManager? stateManager);
+  TrinaGridStateManager? stateManager,
+);
 
 class FilterHelper {
   /// A value to identify all column searches when searching filters.

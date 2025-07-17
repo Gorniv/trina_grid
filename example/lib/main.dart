@@ -46,7 +46,15 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
     TrinaColumn(
       title: 'Age',
       field: 'age',
-      type: TrinaColumnType.number(),
+      type: TrinaColumnType.number(defaultValue: 11),
+    ),
+    TrinaColumn(
+      title: 'Age double',
+      field: 'age_double',
+      type: TrinaColumnType.double(
+        defaultValue: 12.23,
+      ),
+      formatter: (value) => value.toString(),
     ),
     TrinaColumn(
       title: 'Buy',
@@ -121,6 +129,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
         'id': TrinaCell(value: 'user1'),
         'name': TrinaCell(value: 'Mike'),
         'age': TrinaCell(value: 20),
+        'age_double': TrinaCell(value: 11.1),
         'buy': TrinaCell(value: false),
         'role': TrinaCell(value: 'Programmer'),
         'role2': TrinaCell(value: 'Programmer'),
@@ -134,6 +143,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
         'id': TrinaCell(value: 'user2'),
         'name': TrinaCell(value: 'Jack'),
         'age': TrinaCell(value: 25),
+        'age_double': TrinaCell(value: null),
         'buy': TrinaCell(value: true),
         'role': TrinaCell(value: 'Designer'),
         'role2': TrinaCell(value: 'Designer'),
@@ -147,6 +157,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
         'id': TrinaCell(value: 'user3'),
         'name': TrinaCell(value: 'Suzi'),
         'age': TrinaCell(value: 40),
+        'age_double': TrinaCell(value: 11.3),
         'buy': TrinaCell(value: null),
         'role': TrinaCell(value: 'Owner'),
         'role2': TrinaCell(value: 'Owner'),
@@ -160,7 +171,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
   /// columnGroups that can group columns can be omitted.
   final List<TrinaColumnGroup> columnGroups = [
     TrinaColumnGroup(title: 'Id', fields: ['id'], expandedColumn: true),
-    TrinaColumnGroup(title: 'User information', fields: ['name', 'age']),
+    TrinaColumnGroup(title: 'User information', fields: ['name', 'age', 'age_double']),
     TrinaColumnGroup(title: 'Status', children: [
       TrinaColumnGroup(title: 'A', fields: ['role'], expandedColumn: true),
       TrinaColumnGroup(

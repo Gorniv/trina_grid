@@ -36,7 +36,7 @@ abstract interface class TrinaColumnType {
   /// [locale] Specifies the numeric locale of the column.
   /// If not specified, the default locale is used.
   factory TrinaColumnType.number({
-    dynamic defaultValue = 0,
+    num defaultValue = 0,
     bool negative = true,
     String format = '#,###',
     bool applyFormatOnInit = true,
@@ -44,6 +44,24 @@ abstract interface class TrinaColumnType {
     String? locale,
   }) {
     return TrinaColumnTypeNumber(
+      defaultValue: defaultValue,
+      format: format,
+      negative: negative,
+      applyFormatOnInit: applyFormatOnInit,
+      allowFirstDot: allowFirstDot,
+      locale: locale,
+    );
+  }
+
+  factory TrinaColumnType.double({
+    double defaultValue = 0,
+    bool negative = true,
+    String format = '###.0#',
+    bool applyFormatOnInit = true,
+    bool allowFirstDot = false,
+    String? locale,
+  }) {
+    return TrinaColumnTypeDouble(
       defaultValue: defaultValue,
       format: format,
       negative: negative,
