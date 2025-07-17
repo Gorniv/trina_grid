@@ -327,7 +327,7 @@ mixin EditingState implements ITrinaGridState {
     );
 
     if (callOnChangedEvent == true && cell.onChanged != null) {
-      cell.onChanged!(changedEvent);
+      cell.onChanged!(value: value, referenceValue: cell.referenceValue);
     }
 
     if (callOnChangedEvent == true && onChanged != null) {
@@ -452,7 +452,7 @@ mixin EditingState implements ITrinaGridState {
 
         // Call the cell-level onChanged callback if it exists
         if (currentCell.onChanged != null) {
-          currentCell.onChanged!(changedEvent);
+          currentCell.onChanged!(value: newValue, referenceValue: currentCell.referenceValue);
         }
 
         // Call the grid-level onChanged callback if it exists

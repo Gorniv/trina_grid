@@ -67,7 +67,7 @@ class TrinaCell {
 
   /// Callback that is triggered when this specific cell's value is changed.
   /// This allows for cell-level control over value changes.
-  final TrinaOnChangedEventCallback? onChanged;
+  Function({dynamic value, dynamic referenceValue})? onChanged;
 
   /// Merge information for this cell.
   /// Contains information about row/column spanning and main cell references.
@@ -150,6 +150,8 @@ class TrinaCell {
       return;
     }
     _value = changed;
+
+    onChanged?.call(value: _value, referenceValue: referenceValue);
   }
 
   /// Helper method to store the old value when change tracking is enabled
