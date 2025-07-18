@@ -57,6 +57,23 @@ class TrinaBaseRow extends StatelessWidget {
   }
 
   TrinaVisibilityLayoutId _makeCell(TrinaColumn column) {
+    // check exist and more readable warning
+    if (!row.cells.containsKey(column.field)) {
+      debugPrint(
+        'TrinaGrid: The cell with field "${column.field}" does not exist in the row.',
+      );
+      return TrinaVisibilityLayoutId(
+        id: column.field,
+        child: TrinaBaseCell(
+          key: ValueKey<String>('missingCell_${column.field}'),
+          cell: TrinaCell(),
+          column: column,
+          rowIdx: rowIdx,
+          row: row,
+          stateManager: stateManager,
+        ),
+      );
+    }
     return TrinaVisibilityLayoutId(
       id: column.field,
       child: TrinaBaseCell(
