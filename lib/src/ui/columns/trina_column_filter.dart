@@ -257,6 +257,13 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
     // empty for ignore event of OnEditingComplete.
   }
 
+  void _handleOnPressedFilter() {
+    stateManager.showFilterPopup(
+      context,
+      calledColumn: widget.column,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final style = stateManager.style;
@@ -378,6 +385,15 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
             disabledBorder: _disabledBorder,
             focusedBorder: _enabledBorder,
             contentPadding: const EdgeInsets.all(5),
+            suffix: IconButton(
+              icon: Icon(
+                Icons.filter_alt_outlined,
+                color: stateManager.configuration.style.iconColor,
+                size: stateManager.configuration.style.iconSize,
+              ),
+              tooltip: stateManager.configuration.localeText.filter,
+              onPressed: _handleOnPressedFilter,
+            ),
           ),
         ),
       );

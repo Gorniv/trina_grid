@@ -401,7 +401,7 @@ void main() {
         await tester.pumpAndSettle(const Duration(seconds: 1));
 
         expect(stateManager.hasFilter, true);
-        expect(find.byIcon(Icons.filter_alt_outlined), findsOneWidget);
+        expect(find.byIcon(Icons.filter_alt_outlined), findsWidgets);
       },
     );
   });

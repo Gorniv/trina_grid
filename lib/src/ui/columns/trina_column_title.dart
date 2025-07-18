@@ -596,33 +596,11 @@ class _ColumnTextWidgetState extends TrinaStateWithChange<_ColumnTextWidget> {
     );
   }
 
-  void _handleOnPressedFilter() {
-    stateManager.showFilterPopup(context, calledColumn: widget.column);
-  }
-
   String? get _title =>
       widget.column.titleSpan == null ? widget.column.title : null;
 
   List<InlineSpan> get _children => [
         if (widget.column.titleSpan != null) widget.column.titleSpan!,
-        if (_isFilteredList &&
-            stateManager.configuration.style.filterIcon != null)
-          WidgetSpan(
-            alignment: PlaceholderAlignment.middle,
-            child: IconButton(
-              icon: Icon(
-                stateManager.configuration.style.filterIcon!.icon,
-                color: stateManager.configuration.style.iconColor,
-                size: stateManager.configuration.style.iconSize,
-              ),
-              tooltip: stateManager.configuration.localeText.filter,
-              onPressed: _handleOnPressedFilter,
-              constraints: BoxConstraints(
-                maxHeight: widget.height +
-                    (widget.stateManager.style.cellHorizontalBorderWidth * 2),
-              ),
-            ),
-          ),
       ];
 
   @override
