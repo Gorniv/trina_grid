@@ -279,9 +279,13 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
             padding: _padding,
             child: Center(
               child: Checkbox(
-                value: _controller.text == 'true' ? true : false,
-                onChanged: (bool? value) =>
-                    _handleOnChanged(value?.toString() ?? ''),
+                tristate: true,
+                value: _controller.text == 'true'
+                    ? true
+                    : _controller.text == 'false'
+                        ? false
+                        : null,
+                onChanged: (value) => _handleOnChanged(value?.toString() ?? ''),
               ),
             ),
           ),
