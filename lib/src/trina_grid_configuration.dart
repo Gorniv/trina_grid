@@ -943,21 +943,31 @@ class TrinaGridScrollbarConfig {
     this.isAlwaysShown = false,
     this.dragDevices,
     this.isDraggable = true,
+    this.onlyDraggingThumb = true,
 
     // Advanced scrollbar appearance settings
     this.thumbVisible = true,
     this.showTrack = true,
     this.showHorizontal = true,
     this.showVertical = true,
-    this.thickness = 8.0,
+    this.thickness = defaultThickness,
+    this.thicknessWhileDragging = defaultThicknessWhileDragging,
     this.minThumbLength = 40.0,
-    this.radius,
+    this.mainAxisMargin,
+    this.crossAxisMargin,
+    this.radius = defaultRadius,
+    this.radiusWhileDragging = defaultRadiusWhileDragging,
     this.thumbColor,
     this.trackColor,
     this.thumbHoverColor,
     this.trackHoverColor,
     this.columnShowScrollWidth = true,
   });
+
+  static const double defaultThickness = 3.0;
+  static const double defaultThicknessWhileDragging = 8.0;
+  static const double defaultRadius = 1.5;
+  static const double defaultRadiusWhileDragging = 4.0;
 
   /// Whether the scrollbar is always visible
   final bool isAlwaysShown;
@@ -967,6 +977,9 @@ class TrinaGridScrollbarConfig {
 
   /// Whether scrollbar thumbs can be dragged with pointer devices
   final bool isDraggable;
+
+  /// If [onlyDraggingThumb] is false, scrolling can be done by dragging the track area.
+  final bool onlyDraggingThumb;
 
   /// Whether the scrollbar thumb is visible
   final bool thumbVisible;
@@ -983,11 +996,23 @@ class TrinaGridScrollbarConfig {
   /// Thickness of the scrollbar
   final double thickness;
 
+  /// Thickness of the scrollbar while dragging
+  final double thicknessWhileDragging;
+
   /// Minimum length of the scrollbar thumb
   final double minThumbLength;
 
+  /// Main axis margin for the scrollbar
+  final double? mainAxisMargin;
+
+  /// Cross axis margin for the scrollbar
+  final double? crossAxisMargin;
+
   /// Radius of the scrollbar thumb and track (defaults to thickness/2 if not specified)
   final double? radius;
+
+  /// Radius of the scrollbar thumb and track while dragging
+  final double? radiusWhileDragging;
 
   /// Color of the scrollbar thumb
   final Color? thumbColor;
@@ -1022,6 +1047,10 @@ class TrinaGridScrollbarConfig {
   /// Get effective radius for the scrollbar
   double get effectiveRadius => radius ?? thickness / 2;
 
+  /// Get effective radius for the scrollbar while dragging
+  double get effectiveRadiusWhileDragging =>
+      radiusWhileDragging ?? thicknessWhileDragging / 2;
+
   @override
   bool operator ==(covariant Object other) {
     return identical(this, other) ||
@@ -1030,13 +1059,18 @@ class TrinaGridScrollbarConfig {
             isAlwaysShown == other.isAlwaysShown &&
             dragDevices == other.dragDevices &&
             isDraggable == other.isDraggable &&
+            onlyDraggingThumb == other.onlyDraggingThumb &&
             thumbVisible == other.thumbVisible &&
             showTrack == other.showTrack &&
             showHorizontal == other.showHorizontal &&
             showVertical == other.showVertical &&
             thickness == other.thickness &&
+            thicknessWhileDragging == other.thicknessWhileDragging &&
             minThumbLength == other.minThumbLength &&
+            mainAxisMargin == other.mainAxisMargin &&
+            crossAxisMargin == other.crossAxisMargin &&
             radius == other.radius &&
+            radiusWhileDragging == other.radiusWhileDragging &&
             thumbColor == other.thumbColor &&
             trackColor == other.trackColor &&
             thumbHoverColor == other.thumbHoverColor &&
@@ -1049,13 +1083,18 @@ class TrinaGridScrollbarConfig {
         isAlwaysShown,
         dragDevices,
         isDraggable,
+        onlyDraggingThumb,
         thumbVisible,
         showTrack,
         showHorizontal,
         showVertical,
         thickness,
+        thicknessWhileDragging,
         minThumbLength,
+        mainAxisMargin,
+        crossAxisMargin,
         radius,
+        radiusWhileDragging,
         thumbColor,
         trackColor,
         thumbHoverColor,
