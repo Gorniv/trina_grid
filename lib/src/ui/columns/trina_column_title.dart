@@ -192,9 +192,8 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
                     onPointerUp: (PointerUpEvent event) => _handleOnPointUp(
                       event,
                       RoundedRectangleBorder(
-                        borderRadius:
-                            stateManager.gridPopupBorderRadius ??
-                                BorderRadius.zero,
+                        borderRadius: stateManager.gridPopupBorderRadius ??
+                            BorderRadius.zero,
                       ),
                     ),
                     child: contextMenuIcon,
@@ -250,24 +249,23 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
                 event,
                 RoundedRectangleBorder(
                   borderRadius:
-                      stateManager.gridPopupBorderRadius ??
-                          BorderRadius.zero,
+                      stateManager.gridPopupBorderRadius ?? BorderRadius.zero,
                 ),
               ),
               child: contextMenuIcon,
             )
           : contextMenuIcon,
       isFiltered: isFiltered,
-      showContextMenu:
-          mounted && widget.column.enableContextMenu 
-              ? (BuildContext context, Offset position) => _showContextMenu(
-                  context, 
-                  position, 
-                  RoundedRectangleBorder(
-                    borderRadius: stateManager.gridPopupBorderRadius ?? BorderRadius.zero,
-                  ),
-                )
-              : null,
+      showContextMenu: mounted && widget.column.enableContextMenu
+          ? (BuildContext context, Offset position) => _showContextMenu(
+                context,
+                position,
+                RoundedRectangleBorder(
+                  borderRadius:
+                      stateManager.gridPopupBorderRadius ?? BorderRadius.zero,
+                ),
+              )
+          : null,
     );
   }
 }
@@ -282,9 +280,9 @@ class TrinaGridColumnIcon extends StatelessWidget {
   final Icon? ascendingIcon;
 
   final Icon? descendingIcon;
-  
+
   final Color successColor;
-  
+
   final Color errorColor;
 
   const TrinaGridColumnIcon({
