@@ -39,7 +39,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
       type: TrinaColumnType.text(),
     ),
     TrinaColumn(
-      title: 'Name',
+      title: 'Name test long name in header',
       field: 'name',
       type: TrinaColumnType.text(),
     ),
