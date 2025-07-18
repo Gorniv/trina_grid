@@ -62,11 +62,16 @@ class TrinaBaseRow extends StatelessWidget {
       debugPrint(
         'TrinaGrid: The cell with field "${column.field}" does not exist in the row.',
       );
+      var cell = TrinaCell(
+        key: ValueKey<String>('missingCell_${column.field}'),
+      )
+        ..setColumn(column)
+        ..setRow(row);
       return TrinaVisibilityLayoutId(
         id: column.field,
         child: TrinaBaseCell(
           key: ValueKey<String>('missingCell_${column.field}'),
-          cell: TrinaCell(),
+          cell: cell,
           column: column,
           rowIdx: rowIdx,
           row: row,

@@ -370,8 +370,7 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
           onSubmitted: (String value) {
             _handleOnChanged(value);
             // This gets called when the user taps the "Done" button
-            FocusScope.of(context)
-                .unfocus(); // This hides the keyboard
+            FocusScope.of(context).unfocus(); // This hides the keyboard
           },
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
