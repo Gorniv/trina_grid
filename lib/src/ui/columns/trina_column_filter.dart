@@ -332,8 +332,9 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
       }
     }
 
-    Widget? w = filterDelegate?.filterWidgetBuilder?.call(
-        _focusNode, _controller, _enabled, _handleOnChanged, stateManager);
+    Widget? w = widget.column.filterWidget ??
+        filterDelegate?.filterWidgetBuilder?.call(
+            _focusNode, _controller, _enabled, _handleOnChanged, stateManager);
 
     if (filterDelegate?.isMultiItems == true) {
       w = MultiLineColumnFilter(

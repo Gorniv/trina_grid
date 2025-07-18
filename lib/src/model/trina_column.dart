@@ -209,6 +209,9 @@ class TrinaColumn {
   ///Set suffix icon for filter field
   Widget? filterSuffixIcon;
 
+  ///Set custom widget for filter (simple replacement of default TextField)
+  Widget? filterWidget;
+
   /// The widget of the filter column, this can be customized with the multiple constructors, defaults to a [TrinaFilterColumnWidgetDelegate.initial()]
   TrinaFilterColumnWidgetDelegate? filterWidgetDelegate;
 
@@ -330,11 +333,13 @@ class TrinaColumn {
     this.filterHintText,
     this.filterHintTextColor,
     this.filterSuffixIcon,
+    this.filterWidget,
     this.enableHideColumnMenuItem = true,
     this.enableSetColumnsMenuItem = true,
     this.enableAutoEditing = false,
     this.enableEditingMode = true,
     this.hide = false,
+    TrinaFilterType? defaultFilter,
     TrinaFilterColumnWidgetDelegate? filterWidgetDelegate,
     this.disableRowCheckboxWhen,
     this.validator,
@@ -342,6 +347,7 @@ class TrinaColumn {
     this.filterEnterKeyAction,
     this.enableCellMerge = true,
   })  : _key = UniqueKey(),
+        _defaultFilter = defaultFilter,
         _checkReadOnly = checkReadOnly,
         // Use provided filterWidgetDelegate or create one with column-level properties
         filterWidgetDelegate = filterWidgetDelegate ??
@@ -370,7 +376,7 @@ class TrinaColumn {
   }
 
   TrinaFilterType? _defaultFilter;
-
+  TrinaFilterType? get defaultFilterNullable => _defaultFilter;
   TrinaFilterType get defaultFilter =>
       _defaultFilter ?? const TrinaFilterTypeContains();
 

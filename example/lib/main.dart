@@ -46,6 +46,7 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
     TrinaColumn(
       title: 'Age',
       field: 'age',
+      defaultFilter: const TrinaFilterTypeGreaterThan(),
       type: TrinaColumnType.number(defaultValue: 11),
     ),
     TrinaColumn(
@@ -241,7 +242,15 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
                   onChanged: (TrinaGridOnChangedEvent event) {
                     print(event);
                   },
-                  configuration: const TrinaGridConfiguration(),
+                  configuration: const TrinaGridConfiguration(
+                    columnFilter: TrinaGridColumnFilterConfig(
+                      filters: [
+                        TrinaFilterTypeContains(),
+                        TrinaFilterTypeGreaterThanOrEqualTo(),
+                        TrinaFilterTypeLessThanOrEqualTo(),
+                      ],
+                    ),
+                  ),
                   selectDateCallback:
                       (TrinaCell cell, TrinaColumn column) async {
                     return showDatePicker(

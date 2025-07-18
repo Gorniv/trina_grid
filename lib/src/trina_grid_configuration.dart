@@ -162,7 +162,9 @@ class TrinaGridConfiguration {
 
     for (var i = 0; i < len; i += 1) {
       var column = refColumns[i];
-
+      if (column.defaultFilterNullable != null) {
+        continue;
+      }
       column.setDefaultFilter(columnFilter.getDefaultColumnFilter(column));
     }
   }
