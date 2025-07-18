@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_asserts_with_message
+
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,21 +11,21 @@ typedef SetFilterPopupHandler = void Function(
 
 class FilterHelper {
   /// A value to identify all column searches when searching filters.
-  static const filterFieldAllColumns = 'trinaFilterAllColumns';
+  static const String filterFieldAllColumns = 'trinaFilterAllColumns';
 
   /// The field name of the column that includes the field values of the column
   /// when searching for a filter.
-  static const filterFieldColumn = 'column';
+  static const String filterFieldColumn = 'column';
 
   /// The field name of the column including the filter type
   /// when searching for a filter.
-  static const filterFieldType = 'type';
+  static const String filterFieldType = 'type';
 
   /// The field name of the column containing the value to be searched
   /// when searching for a filter.
-  static const filterFieldValue = 'value';
+  static const String filterFieldValue = 'value';
 
-  static const List<TrinaFilterType> defaultFilters = [
+  static const List<TrinaFilterType> defaultFilters = <TrinaFilterType>[
     TrinaFilterTypeContains(),
     TrinaFilterTypeEquals(),
     TrinaFilterTypeStartsWith(),
@@ -43,7 +45,7 @@ class FilterHelper {
     dynamic filterValueObject,
   }) {
     return TrinaRow(
-      cells: {
+      cells: <String, TrinaCell>{
         filterFieldColumn: TrinaCell(
           value: columnField ?? filterFieldAllColumns,
         ),
@@ -69,27 +71,39 @@ class FilterHelper {
 
     return (TrinaRow? row) {
       bool? flag;
-
-      for (var e in rows) {
-        final filterType = e!.cells[filterFieldType]!.value as TrinaFilterType?;
-
+      if (row == null) {
+        return false;
+      }
+      for (final TrinaRow? e in rows) {
+        if (e == null) {
+          continue;
+        }
+        final TrinaCell? cellValue = e.cells[filterFieldType];
+        if (cellValue == null) {
+          continue;
+        }
+        final TrinaFilterType? filterType = cellValue.value as TrinaFilterType?;
+        if (filterType == null) {
+          continue;
+        }
         if (e.cells[filterFieldColumn]!.value == filterFieldAllColumns) {
           bool? flagAllColumns;
 
-          row!.cells.forEach((key, value) {
-            var foundColumn = enabledFilterColumns!.firstWhereOrNull(
-              (element) => element.field == key,
+          row.cells.forEach((String key, TrinaCell value) {
+            final TrinaColumn? foundColumn =
+                enabledFilterColumns?.firstWhereOrNull(
+              (TrinaColumn element) => element.field == key,
             );
 
             if (foundColumn != null) {
               flagAllColumns = compareOr(
                 flagAllColumns,
                 compareByFilterType(
-                  filterType: filterType!,
+                  filterType: filterType,
                   base: value.value?.toString(),
                   baseObject: value.filterValue,
-                  search: e.cells[filterFieldValue]!.value.toString(),
-                  searchObject: e.cells[filterFieldValue]!.filterValue,
+                  search: e.cells[filterFieldValue]?.value?.toString() ?? '',
+                  searchObject: e.cells[filterFieldValue]?.filterValue,
                   column: foundColumn,
                 ),
               );
@@ -98,22 +112,24 @@ class FilterHelper {
 
           flag = compareAnd(flag, flagAllColumns);
         } else {
-          var foundColumn = enabledFilterColumns!.firstWhereOrNull(
-            (element) => element.field == e.cells[filterFieldColumn]!.value,
+          final TrinaColumn? foundColumn =
+              enabledFilterColumns?.firstWhereOrNull(
+            (TrinaColumn element) =>
+                element.field == e.cells[filterFieldColumn]?.value,
           );
 
           if (foundColumn != null) {
             flag = compareAnd(
               flag,
               compareByFilterType(
-                filterType: filterType!,
-                base: row!.cells[e.cells[filterFieldColumn]!.value]!.value
+                filterType: filterType,
+                base: row.cells[e.cells[filterFieldColumn]?.value]?.value
                         ?.toString() ??
                     '',
                 baseObject:
-                    row.cells[e.cells[filterFieldColumn]!.value]!.filterValue,
-                search: e.cells[filterFieldValue]!.value.toString(),
-                searchObject: e.cells[filterFieldValue]!.filterValue,
+                    row.cells[e.cells[filterFieldColumn]?.value]?.filterValue,
+                search: e.cells[filterFieldValue]?.value?.toString() ?? '',
+                searchObject: e.cells[filterFieldValue]?.filterValue,
                 column: foundColumn,
               ),
             );
@@ -121,7 +137,7 @@ class FilterHelper {
         }
       }
 
-      return flag == true;
+      return flag ?? false;
     };
   }
 
@@ -142,11 +158,14 @@ class FilterHelper {
     List<TrinaRow> filterRows, {
     String allField = 'all',
   }) {
-    final map = <String, List<Map<String, String>>>{};
+    final Map<String, List<Map<String, String>>> map =
+        <String, List<Map<String, String>>>{};
 
-    if (filterRows.isEmpty) return map;
+    if (filterRows.isEmpty) {
+      return map;
+    }
 
-    for (final row in filterRows) {
+    for (final TrinaRow row in filterRows) {
       String columnField = row.cells[FilterHelper.filterFieldColumn]!.value;
 
       if (columnField == FilterHelper.filterFieldAllColumns) {
@@ -160,10 +179,10 @@ class FilterHelper {
       final filterValue = row.cells[FilterHelper.filterFieldValue]!.value;
 
       if (map.containsKey(columnField)) {
-        map[columnField]!.add({filterType: filterValue});
+        map[columnField]!.add(<String, String>{filterType: filterValue});
       } else {
-        map[columnField] = [
-          {filterType: filterValue},
+        map[columnField] = <Map<String, String>>[
+          <String, String>{filterType: filterValue},
         ];
       }
     }
@@ -184,7 +203,7 @@ class FilterHelper {
       return false;
     }
 
-    for (var row in filteredRows) {
+    for (TrinaRow? row in filteredRows) {
       if (row!.cells[filterFieldColumn]!.value == filterFieldAllColumns ||
           row.cells[filterFieldColumn]!.value == column.field) {
         return true;
@@ -233,7 +252,8 @@ class FilterHelper {
     bool compare = false;
 
     if (column.type is TrinaColumnTypeWithNumberFormat) {
-      final numberColumn = column.type as TrinaColumnTypeWithNumberFormat;
+      final TrinaColumnTypeWithNumberFormat numberColumn =
+          column.type as TrinaColumnTypeWithNumberFormat;
 
       compare = compare ||
           filterType.compare(
@@ -450,7 +470,7 @@ class FilterPopupState {
     this.height = 450,
     this.onClosed,
   })  : assert(columns.isNotEmpty),
-        _previousFilterRows = [...filterRows];
+        _previousFilterRows = <TrinaRow?>[...filterRows];
 
   TrinaGridStateManager? _stateManager;
   List<TrinaRow?> _previousFilterRows;
@@ -493,7 +513,7 @@ class FilterPopupState {
 
   void stateListener() {
     if (listEquals(_previousFilterRows, _stateManager!.rows) == false) {
-      _previousFilterRows = [..._stateManager!.rows];
+      _previousFilterRows = <TrinaRow?>[..._stateManager!.rows];
       applyFilter();
     }
   }
@@ -518,12 +538,14 @@ class FilterPopupState {
     required TrinaGridConfiguration configuration,
     required List<TrinaColumn> columns,
   }) {
-    Map<String, String> columnMap = {
+    final Map<String, String> columnMap = <String, String>{
       FilterHelper.filterFieldAllColumns:
           configuration.localeText.filterAllColumns,
     };
 
-    columns.where((element) => element.enableFilterMenuItem).forEach((element) {
+    columns
+        .where((TrinaColumn element) => element.enableFilterMenuItem)
+        .forEach((TrinaColumn element) {
       columnMap[element.field] = element.titleWithGroup;
     });
 
@@ -534,12 +556,12 @@ class FilterPopupState {
     required TrinaGridConfiguration configuration,
     required List<TrinaColumn> columns,
   }) {
-    Map<String, String> columnMap = _makeFilterColumnMap(
+    final Map<String, String> columnMap = _makeFilterColumnMap(
       configuration: configuration,
       columns: columns,
     );
 
-    return [
+    return <TrinaColumn>[
       TrinaColumn(
         title: configuration.localeText.filterColumn,
         field: FilterHelper.filterFieldColumn,
@@ -604,12 +626,12 @@ class TrinaGridFilterPopupHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: <Widget>[
         Row(
-          children: [
+          children: <Widget>[
             IconButton(
               icon: const Icon(Icons.add),
               tooltip: configuration?.localeText.addFilter,
