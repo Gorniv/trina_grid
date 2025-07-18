@@ -360,6 +360,12 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
           onTap: _handleOnTap,
           onChanged: _handleOnChanged,
           onEditingComplete: _handleOnEditingComplete,
+          onSubmitted: (String value) {
+            _handleOnChanged(value);
+            // This gets called when the user taps the "Done" button
+            FocusScope.of(context)
+                .unfocus(); // This hides the keyboard
+          },
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
             hintText: filterDelegate?.filterHintText ??
@@ -371,6 +377,7 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
             enabledBorder: _border,
             disabledBorder: _disabledBorder,
             focusedBorder: _enabledBorder,
+            contentPadding: const EdgeInsets.all(5),
           ),
         ),
       );
