@@ -81,7 +81,7 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
   TrinaGridStateManager get stateManager => widget.stateManager;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
 
     _focusNode = FocusNode(onKeyEvent: _handleOnKey);
@@ -96,8 +96,8 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
   }
 
   @override
-  dispose() {
-    _event.cancel();
+  void dispose() {
+    unawaited(_event.cancel());
 
     _controller.dispose();
 
@@ -348,26 +348,31 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
         stateManager: stateManager,
       );
     } else {
-      w ??= TextField(
-        focusNode: _focusNode,
-        controller: _controller,
-        enabled: _enabled,
-        style: style.cellTextStyle,
-        onTap: _handleOnTap,
-        onChanged: _handleOnChanged,
-        onEditingComplete: _handleOnEditingComplete,
-        decoration: InputDecoration(
-          suffixIcon: suffixIcon,
-          hintText: filterDelegate?.filterHintText ??
-              (_enabled ? widget.column.defaultFilter.title : ''),
-          filled: true,
-          hintStyle: TextStyle(color: filterDelegate?.filterHintTextColor),
-          fillColor: _textFieldColor,
-          border: _border,
-          enabledBorder: _border,
-          disabledBorder: _disabledBorder,
-          focusedBorder: _enabledBorder,
-          contentPadding: const EdgeInsets.all(5),
+      w ??= Tooltip(
+        message: filterDelegate?.filterHintText ??
+            (_enabled ? widget.column.defaultFilter.title : ''),
+        showDuration: const Duration(milliseconds: 300),
+        child: TextField(
+          focusNode: _focusNode,
+          controller: _controller,
+          enabled: _enabled,
+          style: style.cellTextStyle,
+          onTap: _handleOnTap,
+          onChanged: _handleOnChanged,
+          onEditingComplete: _handleOnEditingComplete,
+          decoration: InputDecoration(
+            suffixIcon: suffixIcon,
+            hintText: filterDelegate?.filterHintText ??
+                (_enabled ? widget.column.defaultFilter.title : ''),
+            filled: true,
+            hintStyle: TextStyle(color: filterDelegate?.filterHintTextColor),
+            fillColor: _textFieldColor,
+            border: _border,
+            enabledBorder: _border,
+            disabledBorder: _disabledBorder,
+            focusedBorder: _enabledBorder,
+            contentPadding: const EdgeInsets.all(5),
+          ),
         ),
       );
     }
