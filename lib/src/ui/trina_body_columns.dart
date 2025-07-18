@@ -150,7 +150,7 @@ class TrinaBodyColumnsState extends TrinaStateWithChange<TrinaBodyColumns> {
             ),
             scrollController: _scroll,
             initialViewportDimension:
-                MediaQuery.of(context).size.width - _verticalScrollbarWidth,
+                MediaQuery.sizeOf(context).width - _verticalScrollbarWidth,
             children: _showColumnGroups == true
                 ? _columnGroups.map(_makeColumnGroup).toList(growable: false)
                 : _columns.map(_makeColumn).toList(growable: false),

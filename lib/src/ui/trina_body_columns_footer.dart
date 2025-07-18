@@ -115,7 +115,7 @@ class TrinaBodyColumnsFooterState
             ),
             scrollController: _scroll,
             initialViewportDimension:
-                MediaQuery.of(context).size.width - _verticalScrollbarWidth,
+                MediaQuery.sizeOf(context).width - _verticalScrollbarWidth,
             children: _columns.map(_makeFooter).toList(growable: false),
           ),
           // Add a spacer with the same width as the vertical scrollbar

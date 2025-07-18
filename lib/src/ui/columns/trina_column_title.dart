@@ -206,6 +206,8 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
   }
 
   Widget _buildContextMenuIcon(TrinaGridStyleConfig style) {
+    final theme = Theme.of(context);
+
     return SizedBox(
       height: widget.height,
       child: Align(
@@ -219,6 +221,8 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
                 : style.columnResizeIcon,
             ascendingIcon: style.columnAscendingIcon,
             descendingIcon: style.columnDescendingIcon,
+            successColor: style.activatedColor,
+            errorColor: style.removeIconColor ?? theme.colorScheme.error,
           ),
           iconSize: style.iconSize,
           mouseCursor: contextMenuCursor,
@@ -278,6 +282,10 @@ class TrinaGridColumnIcon extends StatelessWidget {
   final Icon? ascendingIcon;
 
   final Icon? descendingIcon;
+  
+  final Color successColor;
+  
+  final Color errorColor;
 
   const TrinaGridColumnIcon({
     this.sort,
@@ -285,6 +293,8 @@ class TrinaGridColumnIcon extends StatelessWidget {
     this.icon = Icons.dehaze,
     this.ascendingIcon,
     this.descendingIcon,
+    this.successColor = Colors.green,
+    this.errorColor = Colors.red,
     super.key,
   });
 
@@ -295,12 +305,18 @@ class TrinaGridColumnIcon extends StatelessWidget {
         return ascendingIcon == null
             ? Transform.rotate(
                 angle: 90 * pi / 90,
-                child: const Icon(Icons.sort, color: Colors.green),
+                child: Icon(
+                  Icons.sort,
+                  color: successColor,
+                ),
               )
             : ascendingIcon!;
       case TrinaColumnSort.descending:
         return descendingIcon == null
-            ? const Icon(Icons.sort, color: Colors.red)
+            ? Icon(
+                Icons.sort,
+                color: errorColor,
+              )
             : descendingIcon!;
       default:
         return Icon(icon, color: color);
