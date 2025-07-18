@@ -367,7 +367,7 @@ class _CellContainerState extends TrinaStateWithChange<_CellContainer> {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: _decoration,
-      child: Padding(padding: widget.cellPadding, child: widget.child),
+      child: widget.child,
     );
   }
 }

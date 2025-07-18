@@ -371,7 +371,6 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
             enabledBorder: _border,
             disabledBorder: _disabledBorder,
             focusedBorder: _enabledBorder,
-            contentPadding: const EdgeInsets.all(5),
           ),
         ),
       );

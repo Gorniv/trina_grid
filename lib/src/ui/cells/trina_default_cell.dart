@@ -500,13 +500,15 @@ class _DefaultCellWidget extends StatelessWidget {
 
     // Fall back to column renderer
     if (column.hasRenderer) {
-      return column.renderer!(TrinaColumnRendererContext(
-        column: column,
-        rowIdx: rowIdx,
-        row: row,
-        cell: cell,
-        stateManager: stateManager,
-      ));
+      return column.renderer!(
+        TrinaColumnRendererContext(
+          column: column,
+          rowIdx: rowIdx,
+          row: row,
+          cell: cell,
+          stateManager: stateManager,
+        ),
+      );
     }
 
     // Check if this is a merged cell and apply proper alignment
