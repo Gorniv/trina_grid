@@ -30,12 +30,13 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
 
   bool _isPointMoving = false;
 
-  TrinaColumnSort _sort = TrinaColumnSort.none;
+  TrinaColumnSort? _sort;
 
   bool get showContextIcon {
+    _sort ??= widget.column.sort;
     return widget.column.enableContextMenu ||
         widget.column.enableDropToResize ||
-        !_sort.isNone;
+        !_sort!.isNone;
   }
 
   bool get enableGesture {
@@ -58,13 +59,18 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
   @override
   void initState() {
     super.initState();
+    _sort ??= widget.column.sort;
 
     updateState(TrinaNotifierEventForceUpdate.instance);
   }
 
   @override
   void updateState(TrinaNotifierEvent event) {
-    _sort = update<TrinaColumnSort>(_sort, widget.column.sort);
+    _sort ??= widget.column.sort;
+    _sort = update<TrinaColumnSort>(
+      _sort!,
+      widget.column.sort,
+    );
   }
 
   void _showContextMenu(
