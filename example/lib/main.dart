@@ -56,6 +56,24 @@ class _TrinaGridExamplePageState extends State<TrinaGridExamplePage> {
         defaultValue: 12.23,
       ),
       formatter: (value) => value.toString(),
+      footerRenderer: (context) {
+        return TrinaAggregateColumnFooter(
+          rendererContext: context,
+          type: TrinaAggregateColumnType.average,
+          format: '#.##',
+          alignment: Alignment.center,
+          titleSpanBuilder: (text) {
+            return [
+              const TextSpan(
+                text: 'Avg',
+                style: TextStyle(color: Colors.blue),
+              ),
+              const TextSpan(text: ' : '),
+              TextSpan(text: text),
+            ];
+          },
+        );
+      },
     ),
     TrinaColumn(
       title: 'Buy',

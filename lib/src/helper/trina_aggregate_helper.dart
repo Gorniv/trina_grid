@@ -32,6 +32,23 @@ class TrinaAggregateHelper {
     required TrinaColumn column,
     TrinaAggregateFilter? filter,
   }) {
+    if (column.type is TrinaColumnTypeWithDoubleFormat) {
+      final numberColumn = column.type as TrinaColumnTypeWithDoubleFormat;
+
+      final foundItems = filter != null
+          ? rows.where((row) => filter(row.cells[column.field]!))
+          : rows;
+
+      final Iterable<double> numbers = foundItems
+          .map(
+            (e) => e.cells[column.field]?.valueForSorting as double?,
+          )
+          .nonNulls;
+
+      return numbers.isNotEmpty
+          ? numberColumn.toDouble(numberColumn.applyFormat(numbers.average))
+          : null;
+    }
     if (column.type is! TrinaColumnTypeWithNumberFormat ||
         !_hasColumnField(rows: rows, column: column)) {
       return 0;
