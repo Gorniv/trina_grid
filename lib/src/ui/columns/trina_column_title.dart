@@ -159,6 +159,7 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
       child: title,
     );
 
+    Offset position = Offset.zero;
     if (widget.column.enableColumnDrag) {
       // NOTE: The order is important; `Draggable` wraps `DragTarget`
       title = _ColumnDragTarget(
@@ -167,10 +168,22 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
         height: widget.height,
         child: title,
       );
-      title = _DraggableWidget(
-        stateManager: stateManager,
-        column: widget.column,
-        child: title,
+      title = Listener(
+        onPointerUp: (PointerUpEvent event) {
+          position = event.position;
+        },
+        child: GestureDetector(
+          onSecondaryTap: () {
+            if (mounted && widget.column.enableContextMenu) {
+              _showContextMenu(context, position, null);
+            }
+          },
+          child: _DraggableWidget(
+            stateManager: stateManager,
+            column: widget.column,
+            child: title,
+          ),
+        ),
       );
     }
 
@@ -179,7 +192,7 @@ class TrinaColumnTitleState extends TrinaStateWithChange<TrinaColumnTitle> {
     }
 
     return Stack(
-      children: [
+      children: <Widget>[
         Positioned(left: 0, right: 0, child: title),
         if (showContextIcon)
           Positioned.directional(
