@@ -563,7 +563,7 @@ class FilterPopupState {
 
     return <TrinaColumn>[
       TrinaColumn(
-        title: configuration.localeText.filterColumn,
+        title: configuration.localeText.filterColumn.toUpperCase(),
         field: FilterHelper.filterFieldColumn,
         type: TrinaColumnType.select(columnMap.keys.toList(growable: false)),
         enableFilterMenuItem: false,
@@ -573,7 +573,7 @@ class FilterPopupState {
         },
       ),
       TrinaColumn(
-        title: configuration.localeText.filterType,
+        title: configuration.localeText.filterType.toUpperCase(),
         field: FilterHelper.filterFieldType,
         type: TrinaColumnType.select(configuration.columnFilter.filters),
         enableFilterMenuItem: false,
@@ -583,7 +583,7 @@ class FilterPopupState {
         },
       ),
       TrinaColumn(
-        title: configuration.localeText.filterValue,
+        title: configuration.localeText.filterValue.toUpperCase(),
         field: FilterHelper.filterFieldValue,
         type: TrinaColumnType.text(),
         enableFilterMenuItem: false,
@@ -633,9 +633,13 @@ class TrinaGridFilterPopupHeader extends StatelessWidget {
         Row(
           children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.add),
+              icon: Icon(
+                Icons.add,
+                size: configuration!.style.iconSize,
+                color: configuration?.style.addIconColor ??
+                    theme.colorScheme.primary,
+              ),
               tooltip: configuration?.localeText.addFilter,
-              color: configuration!.style.addIconColor ?? theme.primaryColor,
               iconSize: configuration!.style.iconSize,
               onPressed: handleAddButton,
             ),
@@ -643,10 +647,13 @@ class TrinaGridFilterPopupHeader extends StatelessWidget {
               width: configuration!.style.iconSize,
             ),
             IconButton(
-              icon: const Icon(Icons.remove),
+              icon: Icon(
+                Icons.remove,
+                size: configuration!.style.iconSize,
+                color: configuration!.style.removeIconColor ??
+                    theme.colorScheme.error,
+              ),
               tooltip: configuration?.localeText.deleteSelectedFilter,
-              color: configuration!.style.removeIconColor ??
-                  theme.colorScheme.error,
               iconSize: configuration!.style.iconSize,
               onPressed: handleRemoveButton,
             ),
@@ -654,7 +661,12 @@ class TrinaGridFilterPopupHeader extends StatelessWidget {
               width: configuration!.style.iconSize,
             ),
             IconButton(
-              icon: const Icon(Icons.delete_forever),
+              icon: Icon(
+                Icons.delete_forever,
+                size: configuration!.style.iconSize,
+                color: configuration!.style.removeIconColor ??
+                    theme.colorScheme.error,
+              ),
               color: configuration!.style.removeIconColor ??
                   theme.colorScheme.error,
               iconSize: configuration!.style.iconSize,
@@ -723,10 +735,14 @@ class TrinaFilterTypeContainsSet implements TrinaFilterType {
     required String? search,
     required TrinaColumn column,
   }) {
-    if (searchObject == null || (searchObject is Set<String> && searchObject.isEmpty)) {
+    if (searchObject == null ||
+        (searchObject is Set<String> && searchObject.isEmpty)) {
       return true;
     }
-    if (searchObject != null && searchObject is Set<String> && baseObject != null && baseObject is Set<String>) {
+    if (searchObject != null &&
+        searchObject is Set<String> &&
+        baseObject != null &&
+        baseObject is Set<String>) {
       return baseObject.any((String e) => searchObject.contains(e));
     }
     return true;

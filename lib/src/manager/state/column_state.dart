@@ -736,7 +736,7 @@ mixin ColumnState implements ITrinaGridState {
 
     final columns = [
       TrinaColumn(
-          title: configuration.localeText.setColumnsTitle,
+          title: configuration.localeText.setColumnsTitle.toUpperCase(),
           field: titleField,
           type: TrinaColumnType.text(),
           enableRowChecked: true,
