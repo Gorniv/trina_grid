@@ -367,6 +367,7 @@ class TrinaColumnFilterState extends TrinaStateWithChange<TrinaColumnFilter> {
           onTap: _handleOnTap,
           onChanged: _handleOnChanged,
           onEditingComplete: _handleOnEditingComplete,
+          textAlignVertical: TextAlignVertical.center,
           onSubmitted: (String value) {
             _handleOnChanged(value);
             // This gets called when the user taps the "Done" button
